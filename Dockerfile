@@ -1,5 +1,5 @@
 # DOCKER-VERSION 1.0.1
-FROM        tchak2k/lamp
+FROM        tchak2k/apache2-php5:latest
 
 RUN         apt-get update
 RUN	apt-get install -y rtorrent
