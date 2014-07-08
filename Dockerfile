@@ -1,17 +1,17 @@
 # DOCKER-VERSION 1.0.1
-FROM        tchak2k/apache2-php5:latest
+FROM        tchak2k/apache-php5:latest
 
 RUN         apt-get update
 RUN	apt-get install -y rtorrent
 RUN	apt-get install -y subversion
 RUN apt-get install -y libapache2-mod-scgi
 
+VOLUME ["/data"]
 
 RUN mkdir -p /data/session && mkdir -p /data/download && mkdir -p /data/complete
 
 RUN echo "SCGIMount /RPC2 127.0.0.1:5000" >> /etc/apache2/conf-available/scgi.conf
 RUN a2enconf scgi
-
 
 ADD rtorrent.sv.conf /etc/supervisor/conf.d/rtorrent.sv.conf
 ADD rtorrent.rc /root/.rtorrent.rc
