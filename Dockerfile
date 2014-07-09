@@ -6,7 +6,6 @@ RUN	apt-get install -y rtorrent
 RUN	apt-get install -y subversion
 RUN apt-get install -y libapache2-mod-scgi
 
-VOLUME ["/data"]
 
 RUN mkdir -p /data/session && mkdir -p /data/download && mkdir -p /data/complete
 
