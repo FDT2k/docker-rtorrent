@@ -5,18 +5,39 @@ RUN         apt-get update
 RUN	apt-get install -y rtorrent
 RUN	apt-get install -y subversion
 RUN apt-get install -y libapache2-mod-scgi
-
+RUN apt-get install -y openssl
 
 RUN mkdir -p /data/session && mkdir -p /data/download && mkdir -p /data/complete
 
 RUN echo "SCGIMount /RPC2 127.0.0.1:5000" >> /etc/apache2/conf-available/scgi.conf
 RUN a2enconf scgi
 
+RUN a2enmod ssl
+RUN a2enmod auth_digest
+RUN a2enmod scgi
+
 ADD rtorrent.sv.conf /etc/supervisor/conf.d/rtorrent.sv.conf
 ADD rtorrent.rc /root/.rtorrent.rc
 
-EXPOSE 5000
+ADD default /etc/apache2/sites-available/000-default.conf
 
-RUN svn checkout http://rutorrent.googlecode.com/svn/trunk/ /var/www/html
+ADD default-ssl /etc/apache2/sites-available/default-ssl.conf
 
-RUN chmod -R ugo+w /var/www/html/rutorrent/share
+ADD passwords /etc/apache2/passwords
+
+#RUN mkdir /etc/apache2
+#RUN openssl req $@ -new -x509 -days 365 -nodes -out /etc/apache2/apache.pem -keyout /etc/apache2/apache.pem 
+
+RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com"   -out /etc/apache2/apache.pem -keyout /etc/apache2/apache.pem 
+
+
+RUN chmod 600 /etc/apache2/apache.pem
+
+
+
+RUN svn checkout http://rutorrent.googlecode.com/svn/trunk/ /var/www
+
+RUN chmod -R ugo+w /var/www/rutorrent/share
+
+
+RUN a2ensite default-ssl
