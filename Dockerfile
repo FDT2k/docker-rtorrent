@@ -25,8 +25,6 @@ ADD default-ssl /etc/apache2/sites-available/default-ssl.conf
 
 ADD passwords /etc/apache2/passwords
 
-#RUN mkdir /etc/apache2
-#RUN openssl req $@ -new -x509 -days 365 -nodes -out /etc/apache2/apache.pem -keyout /etc/apache2/apache.pem 
 
 RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=Denial/L=Springfield/O=Dis/CN=www.example.com"   -out /etc/apache2/apache.pem -keyout /etc/apache2/apache.pem 
 
