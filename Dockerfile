@@ -9,7 +9,7 @@ RUN apt-get install -y openssl
 
 RUN mkdir -p /data/session && mkdir -p /data/download && mkdir -p /data/complete
 
-RUN echo "SCGIMount /RPC2 127.0.0.1:5000" >> /etc/apache2/conf-available/scgi.conf
+RUN echo "SCGIMount /RPC2 0.0.0.0:5000" >> /etc/apache2/conf-available/scgi.conf
 RUN a2enconf scgi
 
 RUN a2enmod ssl
