@@ -6,15 +6,15 @@ RUN	apt-get install -y rtorrent
 RUN	apt-get install -y subversion
 RUN apt-get install -y libapache2-mod-scgi
 RUN apt-get install -y openssl
-
+RUN apt-get install -y sed
 RUN mkdir -p /data/session && mkdir -p /data/download && mkdir -p /data/complete
 
-RUN echo "SCGIMount /RPC2 0.0.0.0:5000" >> /etc/apache2/conf-available/scgi.conf
-RUN a2enconf scgi
-
+#RUN echo "SCGIMount /RPC2 0.0.0.0:5000" >> /etc/apache2/conf-available/scgi.conf
+#RUN a2enconf scgi
+ADD init.sh /init.sh
 RUN a2enmod ssl
 RUN a2enmod auth_digest
-RUN a2enmod scgi
+#RUN a2enmod scgi
 
 ADD rtorrent.sv.conf /etc/supervisor/conf.d/rtorrent.sv.conf
 ADD rtorrent.rc /root/.rtorrent.rc
@@ -31,11 +31,10 @@ RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=Den
 
 RUN chmod 600 /etc/apache2/apache.pem
 
-
-
 RUN svn checkout http://rutorrent.googlecode.com/svn/trunk/ /var/www
 
 RUN chmod -R ugo+w /var/www/rutorrent/share
 
-
 RUN a2ensite default-ssl
+
+CMD ["bash","init.sh"]
