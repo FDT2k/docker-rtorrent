@@ -20,7 +20,7 @@ fi
 
 if [[ ! -d /data/session ]]; then
 	mkdir -p /data/session
-	rm -f /data/session/rtorrent.lock
+
 fi
 
 if [[ ! -d /data/complete ]]; then
@@ -34,5 +34,6 @@ fi
 if [[ ! -d /data/auto ]]; then
 	mkdir -p /data/auto
 fi
-
+#ensure rtorrent is not locked
+rm -f /data/session/rtorrent.lock
 supervisord -c /etc/supervisor/supervisor.conf
