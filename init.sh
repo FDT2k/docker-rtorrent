@@ -9,6 +9,8 @@ if [[ ! -f /.rtorrent_configured ]]; then
 	
 	sed "s/scgi_port = 0.0.0.0:5000/scgi_port = 0.0.0.0:$RPC_PORT/g" /root/.rtorrent.rc  > /root/.rtorrent.rc.tmp && mv /root/.rtorrent.rc.tmp /root/.rtorrent.rc && rm /root/.rtorrent.rc.tmp
 	
+	sed "s/port_range = 56000-56000/port_range = $LISTEN_PORT-$LISTEN_PORT/g" /root/.rtorrent.rc  > /root/.rtorrent.rc.tmp && mv /root/.rtorrent.rc.tmp /root/.rtorrent.rc && rm /root/.rtorrent.rc.tmp
+
 
 
 	touch /.rtorrent_configured
