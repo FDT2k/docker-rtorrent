@@ -12,6 +12,8 @@ if [[ ! -f /.rtorrent_configured ]]; then
 	sed "s/port_range = 56000-56000/port_range = $LISTEN_PORT-$LISTEN_PORT/g" /root/.rtorrent.rc  > /root/.rtorrent.rc.tmp && mv /root/.rtorrent.rc.tmp /root/.rtorrent.rc 
 
 
+	service apache2 reload
+
 
 	touch /.rtorrent_configured
 
