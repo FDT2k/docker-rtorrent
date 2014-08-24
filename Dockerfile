@@ -31,7 +31,20 @@ RUN openssl req -new -newkey rsa:4096 -days 365 -nodes -x509 -subj "/C=US/ST=Den
 
 RUN chmod 600 /etc/apache2/apache.pem
 
-RUN svn checkout http://rutorrent.googlecode.com/svn/trunk/ /var/www
+#RUN svn checkout http://rutorrent.googlecode.com/svn/trunk/ /var/www
+
+RUN git clone https://github.com/Novik/ruTorrent.git /var/www/rutorrent
+
+RUN echo [data] >> /var/www/rutorrent/plugins.ini
+RUN echo enabled = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canChangeToolbar = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canChangeMenu = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canChangeOptions = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canChangeTabs = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canChangeColumns = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canChangeStatusBar = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canChangeCategory = yes >> /var/www/rutorrent/plugins.ini
+RUN echo canBeShutdowned = yes >> /var/www/rutorrent/plugins.ini
 
 RUN chmod -R ugo+w /var/www/rutorrent/share
 
