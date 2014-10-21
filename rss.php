@@ -13,7 +13,7 @@ function build_rss($path="/data/complete", $recursive =true){
 				}else if(is_file($fullPath)){
 					echo "  <item>
     <title>".$file."</title>
-    <link>".str_replace('/data/','sftp://root:XLsior942@'.$_SERVER['HTTP_HOST'].'/home/netbox/mounted/',$fullPath)."</link>
+    <link>".str_replace('/data/','sftp://@'.$_SERVER['HTTP_HOST'].'/home/netbox/mounted/',$fullPath)."</link>
     <description>movie</description>
   </item>";
 				}
