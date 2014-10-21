@@ -48,6 +48,8 @@ RUN echo canBeShutdowned = yes >> /var/www/rutorrent/plugins.ini
 
 RUN chmod -R ugo+w /var/www/rutorrent/share
 
+ADD rss.php /var/www/rss.php
+
 RUN a2ensite default-ssl
 
 CMD ["bash","init.sh"]

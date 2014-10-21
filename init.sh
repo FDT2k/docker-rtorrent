@@ -14,9 +14,11 @@ if [[ ! -f /.rtorrent_configured ]]; then
 
 	service apache2 reload
 
+	#setting up user
+
+	(echo -n "$USER:$REALM:" && echo -n "$USER:$REALM:$PASSWORD" | md5sum | awk '{print $1}' ) >> /etc/apache2/passwords
 
 	touch /.rtorrent_configured
-
 
 fi
 
